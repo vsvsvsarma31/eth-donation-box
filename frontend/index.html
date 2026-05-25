@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ETH Donation Box — BlockBase Project</title>
+    <meta name="description" content="A decentralised donation dApp built on Ethereum Sepolia testnet. Send ETH donations transparently via smart contract." />
+
+    <!-- Google Fonts: Inter + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap"
+        rel="stylesheet"
+    />
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <!-- ════════════════════════════════════════════
+         HEADER
+    ═══════════════════════════════════════════════ -->
+    <header class="site-header">
+        <div class="header-logo">
+            <div class="logo-icon">💙</div>
+            <div class="header-titles">
+                <h1>ETH Donation Box</h1>
+                <p>Transparent on-chain donations · Sepolia Testnet</p>
+            </div>
+        </div>
+
+        <button id="btn-connect">
+            <span class="wallet-dot" id="wallet-dot"></span>
+            <span id="wallet-label">Connect Wallet</span>
+        </button>
+    </header>
+
+    <!-- ════════════════════════════════════════════
+         WRONG NETWORK WARNING
+    ═══════════════════════════════════════════════ -->
+    <div id="network-warning" role="alert">
+        <span>⚠️</span>
+        <span>Wrong network detected. Please switch MetaMask to <strong>Sepolia Testnet</strong> (Chain ID: 11155111) and reload.</span>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         STATS OVERVIEW
+    ═══════════════════════════════════════════════ -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Contract Balance</div>
+            <div class="stat-value" id="stat-balance">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Unique Donors</div>
+            <div class="stat-value" id="stat-donors">—</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Total Donated</div>
+            <div class="stat-value" id="stat-total">—</div>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         DONATE CARD
+    ═══════════════════════════════════════════════ -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">💸</span>
+            <h2>Make a Donation</h2>
+        </div>
+
+        <!-- My contribution row — only meaningful when connected -->
+        <div class="my-donation-row">
+            <span>🙋</span>
+            <div>
+                <p>Your total contribution</p>
+                <strong id="my-donation-amount">Connect wallet to see</strong>
+            </div>
+        </div>
+
+        <!-- Donation input -->
+        <div class="form-group">
+            <label for="donate-input">Amount to donate</label>
+            <div class="input-row">
+                <div class="eth-input-wrap">
+                    <input
+                        type="number"
+                        id="donate-input"
+                        min="0.0001"
+                        step="0.001"
+                        placeholder="0.01"
+                    />
+                    <span class="eth-suffix">ETH</span>
+                </div>
+                <button class="btn btn-primary" id="btn-donate" disabled>
+                    Donate
+                </button>
+            </div>
+        </div>
+
+        <!-- Transaction status area -->
+        <div id="tx-status" role="status" aria-live="polite">
+            <div class="spinner" id="tx-spinner"></div>
+            <span id="tx-msg"></span>
+        </div>
+        <a id="tx-hash-link" target="_blank" rel="noopener noreferrer" href="#"></a>
+
+        <div class="divider"></div>
+
+        <!-- Etherscan contract link -->
+        <a
+            id="contract-etherscan-link"
+            class="etherscan-link"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            style="display:none"
+        >
+            <span>🔍</span>
+            <span>View contract on Etherscan</span>
+        </a>
+
+        <p style="font-size:12px;color:var(--text-muted);margin-top:10px;">
+            This dApp runs on <strong>Sepolia testnet</strong>. Get free test ETH from
+            <a href="https://sepoliafaucet.com" target="_blank" rel="noopener" style="color:var(--accent)">sepoliafaucet.com</a>
+            or <a href="https://faucets.chain.link/sepolia" target="_blank" rel="noopener" style="color:var(--accent)">faucets.chain.link</a>.
+        </p>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         OWNER PANEL (hidden until owner connects)
+    ═══════════════════════════════════════════════ -->
+    <div class="card" id="owner-panel">
+        <div class="owner-panel-header">
+            <span class="card-icon">🔐</span>
+            <h2>Owner Panel</h2>
+            <span class="owner-tag">Owner Only</span>
+        </div>
+
+        <p class="owner-info" id="owner-balance-info">
+            Loading contract balance…
+        </p>
+
+        <button class="btn btn-danger btn-full" id="btn-withdraw">
+            Withdraw All Funds to Owner Address
+        </button>
+
+        <p style="font-size:12px;color:var(--text-muted);margin-top:12px;">
+            This button transfers the entire contract balance to the owner's wallet.
+            Only the address that deployed the contract can call this.
+        </p>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         DONOR LEADERBOARD
+    ═══════════════════════════════════════════════ -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">🏆</span>
+            <h2>Donor Leaderboard</h2>
+        </div>
+
+        <div id="donor-list">
+            <p class="empty-state">Connect your wallet to load donor data.</p>
+        </div>
+    </div>
+
+    <!-- ════════════════════════════════════════════
+         ABOUT / TECHNICAL INFO
+    ═══════════════════════════════════════════════ -->
+    <div class="card">
+        <div class="card-header">
+            <span class="card-icon">ℹ️</span>
+            <h2>About This dApp</h2>
+        </div>
+
+        <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">
+            ETH Donation Box is a BlockBase course capstone project. It demonstrates
+            core Solidity concepts: <code>mapping</code>, <code>constructor</code>,
+            <code>require()</code>, <code>onlyOwner</code> modifier, <code>event</code>
+            emissions, and ETH transfers — deployed to the Ethereum Sepolia testnet.
+        </p>
+
+        <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="donor-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
+                <span class="label">Smart contract</span>
+                <code id="contract-address-display">See README for deployed address</code>
+            </div>
+            <div class="donor-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
+                <span class="label">Network</span>
+                <code>Sepolia Testnet · Chain ID 11155111</code>
+            </div>
+            <div class="donor-item" style="flex-direction:column;align-items:flex-start;gap:4px;">
+                <span class="label">Stack</span>
+                <code>Solidity 0.8.10 · ethers.js v5 · MetaMask · Remix IDE</code>
+            </div>
+        </div>
+    </div>
+
+</div><!-- end .page-wrapper -->
+
+<!-- ════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════ -->
+<footer class="site-footer">
+    <p>Built for <strong>BlockBase</strong> · IIT Guwahati Finance and Economics Club</p>
+    <p style="margin-top:6px;">
+        <a href="https://sepolia.etherscan.io" target="_blank" rel="noopener">Etherscan Sepolia</a>
+        &nbsp;·&nbsp;
+        <a href="https://remix.ethereum.org" target="_blank" rel="noopener">Remix IDE</a>
+        &nbsp;·&nbsp;
+        <a href="https://sepoliafaucet.com" target="_blank" rel="noopener">Sepolia Faucet</a>
+    </p>
+</footer>
+
+<!-- ════════════════════════════════════════════
+     SCRIPTS
+     ethers.js v5 loaded from cdnjs (stable, no build step)
+     Must load BEFORE app.js
+═══════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+<script src="app.js"></script>
+
+<!-- Inline: set contract address display after DOM loads -->
+<script>
+    window.addEventListener("DOMContentLoaded", function() {
+        var addr = typeof CONTRACT_ADDRESS !== "undefined" ? CONTRACT_ADDRESS : "";
+        var el = document.getElementById("contract-address-display");
+        if (el && addr && !addr.includes("PASTE_YOUR")) {
+            el.textContent = addr;
+        }
+    });
+</script>
+
+</body>
+</html>

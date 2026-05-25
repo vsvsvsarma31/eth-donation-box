@@ -1,0 +1,707 @@
+/* =========================================================
+   DonationBox — style.css
+   Theme: warm charcoal, off-white, amber accent
+   Fonts: Space Grotesk (headings), DM Sans (body), Space Mono (code)
+   Hand-chosen. Not generated.
+   ========================================================= */
+
+/* ── Google Fonts import ─────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* ── Reset & base ─────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Warm background layers */
+    --bg: #1a1a1a;
+    --surface: #222220;
+    --surface-2: #2a2927;
+
+    /* Borders with a hint of warmth */
+    --border: #3a3733;
+    --border-warm: rgba(232, 147, 90, 0.18);
+
+    /* Accent — warm amber / coral */
+    --accent: #e8935a;
+    --accent-hover: #d97c42;
+    --accent-light: rgba(232, 147, 90, 0.10);
+    --accent-deep: rgba(232, 147, 90, 0.22);
+
+    /* Semantic colours — kept warm-tinted */
+    --success: #5ab87a;
+    --success-bg: rgba(90, 184, 122, 0.10);
+    --warning: #d4a84b;
+    --warning-bg: rgba(212, 168, 75, 0.12);
+    --danger: #d46a6a;
+    --danger-bg: rgba(212, 106, 106, 0.10);
+
+    /* Text */
+    --text-primary: #f0ece3;
+    --text-secondary: #a89e8e;
+    --text-muted: #5e574f;
+
+    /* Shape */
+    --radius: 14px;
+    --radius-sm: 9px;
+
+    /* Typography */
+    --font-body: 'DM Sans', system-ui, -apple-system, sans-serif;
+    --font-heading: 'Space Grotesk', system-ui, sans-serif;
+    --font-mono: 'Space Mono', 'Fira Code', monospace;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.65;
+    min-height: 100vh;
+    padding: 0 16px 60px;
+    /* Very subtle warm grain overlay via gradient */
+    background-image:
+        radial-gradient(ellipse 80% 40% at 50% -10%, rgba(232, 147, 90, 0.05) 0%, transparent 60%);
+}
+
+/* ── Typography helpers ───────────────────────────────── */
+h1,
+h2,
+h3 {
+    font-family: var(--font-heading);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+}
+
+.label {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+code {
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    background: var(--surface-2);
+    color: var(--accent);
+    padding: 2px 7px;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+}
+
+/* ── Layout ───────────────────────────────────────────── */
+.page-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+}
+
+/* ── Header ───────────────────────────────────────────── */
+.site-header {
+    padding: 44px 0 36px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.logo-icon {
+    width: 46px;
+    height: 46px;
+    background: var(--accent-deep);
+    border: 1.5px solid var(--accent);
+    border-radius: 11px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    box-shadow: 0 2px 8px rgba(232, 147, 90, 0.15);
+}
+
+.header-titles h1 {
+    font-size: 23px;
+    font-weight: 700;
+    color: var(--text-primary);
+    font-family: var(--font-heading);
+}
+
+.header-titles p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+    font-family: var(--font-body);
+}
+
+/* ── Wallet connect button ────────────────────────────── */
+#btn-connect {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--accent);
+    color: #1a1a1a;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-body);
+    cursor: pointer;
+    /* Hand-chosen offset shadow — not symmetric */
+    box-shadow: 3px 4px 0px rgba(0, 0, 0, 0.35);
+    transition: background 0.15s, transform 0.1s, box-shadow 0.1s;
+    white-space: nowrap;
+    letter-spacing: 0.01em;
+}
+
+#btn-connect:hover {
+    background: var(--accent-hover);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.35);
+    transform: translate(1px, 1px);
+}
+
+#btn-connect:active {
+    transform: translate(3px, 4px);
+    box-shadow: none;
+}
+
+#btn-connect.connected {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    color: var(--text-secondary);
+    cursor: default;
+    box-shadow: none;
+    font-weight: 600;
+}
+
+.wallet-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(26, 26, 26, 0.5);
+    flex-shrink: 0;
+    transition: background 0.3s;
+}
+
+.wallet-dot.connected {
+    background: var(--success);
+}
+
+/* ── Network banner ───────────────────────────────────── */
+#network-warning {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: var(--warning-bg);
+    border: 1px solid rgba(212, 168, 75, 0.4);
+    border-radius: var(--radius-sm);
+    color: var(--warning);
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+#network-warning.show {
+    display: flex;
+}
+
+#network-warning span {
+    flex: 1;
+}
+
+/* ── Card component ───────────────────────────────────── */
+.card {
+    background: var(--surface);
+    /* Warm-tinted border instead of cold blue */
+    border: 1px solid var(--border-warm);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    /* Warm ambient glow, not a sharp blue halo */
+    box-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(232, 147, 90, 0.05) inset;
+    transition: box-shadow 0.2s;
+}
+
+.card:hover {
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(232, 147, 90, 0.09) inset;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.card-header h2 {
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+}
+
+.card-icon {
+    font-size: 18px;
+    line-height: 1;
+}
+
+/* ── Stats grid ───────────────────────────────────────── */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border-warm);
+    border-radius: var(--radius-sm);
+    padding: 18px 14px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    transition: transform 0.15s;
+}
+
+.stat-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Numbers: big, warm, bold — not data-dashboard tabular */
+.stat-value {
+    font-family: var(--font-heading);
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 6px 0 2px;
+    letter-spacing: -0.02em;
+    line-height: 1;
+}
+
+.stat-label {
+    font-family: var(--font-body);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+/* ── Donation form ────────────────────────────────────── */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 7px;
+    font-family: var(--font-body);
+}
+
+.input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.eth-input-wrap {
+    position: relative;
+    flex: 1;
+}
+
+.eth-input-wrap input {
+    width: 100%;
+    padding: 11px 48px 11px 14px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: var(--font-body);
+    outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.eth-input-wrap input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(232, 147, 90, 0.12);
+}
+
+.eth-input-wrap input::placeholder {
+    color: var(--text-muted);
+}
+
+.eth-suffix {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 12px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    pointer-events: none;
+    letter-spacing: 0.04em;
+}
+
+/* ── Buttons ──────────────────────────────────────────── */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 700;
+    font-family: var(--font-body);
+    cursor: pointer;
+    border: none;
+    letter-spacing: 0.01em;
+    transition: background 0.15s, opacity 0.15s, transform 0.1s, box-shadow 0.1s;
+    white-space: nowrap;
+}
+
+/* Tactile press: offset shadow that "lifts" on hover and "presses" on active */
+.btn-primary {
+    background: var(--accent);
+    color: #1a1a1a;
+    box-shadow: 3px 4px 0px rgba(0, 0, 0, 0.38);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--accent-hover);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.38);
+    transform: translate(1px, 1px);
+}
+
+.btn-primary:active:not(:disabled) {
+    transform: translate(3px, 4px);
+    box-shadow: none;
+}
+
+.btn-danger {
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid rgba(212, 106, 106, 0.45);
+    box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.3);
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: var(--danger);
+    color: #f0ece3;
+    box-shadow: 1px 2px 0px rgba(0, 0, 0, 0.3);
+    transform: translate(1px, 1px);
+}
+
+.btn-danger:active:not(:disabled) {
+    transform: translate(2px, 3px);
+    box-shadow: none;
+}
+
+.btn:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+/* ── Transaction status ───────────────────────────────── */
+#tx-status {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    margin-top: 14px;
+    word-break: break-all;
+}
+
+#tx-status.show {
+    display: flex;
+}
+
+#tx-status.pending {
+    background: var(--warning-bg);
+    border: 1px solid rgba(212, 168, 75, 0.4);
+    color: var(--warning);
+}
+
+#tx-status.success {
+    background: var(--success-bg);
+    border: 1px solid rgba(90, 184, 122, 0.4);
+    color: var(--success);
+}
+
+#tx-status.error {
+    background: var(--danger-bg);
+    border: 1px solid rgba(212, 106, 106, 0.4);
+    color: var(--danger);
+}
+
+.spinner {
+    display: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    flex-shrink: 0;
+}
+
+.spinner.show {
+    display: block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ── Donor list ───────────────────────────────────────── */
+.donor-list {
+    list-style: none;
+    margin-top: 8px;
+}
+
+.donor-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 13px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 8px;
+    font-size: 13px;
+    transition: border-color 0.15s;
+}
+
+.donor-item:hover {
+    border-color: var(--border-warm);
+}
+
+.donor-addr {
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    font-size: 11.5px;
+}
+
+.donor-amount {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+    margin-left: 12px;
+}
+
+.owner-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--warning);
+    background: var(--warning-bg);
+    border: 1px solid rgba(212, 168, 75, 0.35);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-family: var(--font-body);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 28px;
+    color: var(--text-muted);
+    font-size: 14px;
+    font-style: italic;
+}
+
+/* ── Owner panel ──────────────────────────────────────── */
+#owner-panel {
+    display: none;
+    border-color: rgba(212, 168, 75, 0.25);
+}
+
+#owner-panel.show {
+    display: block;
+}
+
+.owner-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.owner-tag {
+    font-family: var(--font-body);
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--warning);
+    background: var(--warning-bg);
+    border: 1px solid rgba(212, 168, 75, 0.35);
+    padding: 3px 8px;
+    border-radius: 5px;
+}
+
+.owner-info {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    padding: 10px 13px;
+    background: var(--surface-2);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    font-family: var(--font-body);
+}
+
+/* ── My donation info ─────────────────────────────────── */
+.my-donation-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background: var(--accent-light);
+    border: 1px solid rgba(232, 147, 90, 0.22);
+    border-radius: var(--radius-sm);
+    margin-bottom: 14px;
+}
+
+.my-donation-row p {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-family: var(--font-body);
+}
+
+.my-donation-row strong {
+    font-family: var(--font-heading);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+/* ── Footer ───────────────────────────────────────────── */
+.site-footer {
+    margin-top: 52px;
+    padding-top: 24px;
+    /* Warm-tinted divider */
+    border-top: 1px solid rgba(232, 147, 90, 0.12);
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+}
+
+.site-footer a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color 0.15s;
+}
+
+.site-footer a:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* ── Etherscan link ───────────────────────────────────── */
+.etherscan-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    margin-top: 14px;
+    font-family: var(--font-body);
+    transition: color 0.15s;
+}
+
+.etherscan-link:hover {
+    color: var(--accent-hover);
+    text-decoration: underline;
+}
+
+/* ── Tx hash display ──────────────────────────────────── */
+#tx-hash-link {
+    display: none;
+    margin-top: 8px;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    color: var(--accent);
+    text-decoration: none;
+    word-break: break-all;
+    opacity: 0.8;
+}
+
+#tx-hash-link:hover {
+    text-decoration: underline;
+    opacity: 1;
+}
+
+#tx-hash-link.show {
+    display: block;
+}
+
+/* ── Divider ──────────────────────────────────────────── */
+.divider {
+    height: 1px;
+    background: var(--border);
+    margin: 20px 0;
+    opacity: 0.7;
+}
+
+/* ── Scrollbar ────────────────────────────────────────── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(232, 147, 90, 0.3);
+}

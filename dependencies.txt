@@ -1,0 +1,34 @@
+# ============================================================
+# ETH Donation Box — Dependency Reference
+# ============================================================
+# This project has NO npm/pip dependencies.
+# It is a static frontend (HTML + CSS + JS) + a Solidity contract.
+# Everything runs in the browser. No build step. No node_modules.
+# ============================================================
+
+# ── Runtime (loaded from CDN, no install required) ──────────
+ethers.js v5.7.2
+  Source : https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js
+  SRI    : sha512-hG6tLc9q8bFM5OQASDTJTJJg/wn8PP0PcayE3I2H1972/F7ktiSvWutAuQIkt4QUTIhiaFEnkrKea7XHUv1ugg==
+  Purpose: Web3 provider, contract interaction, BigNumber, formatEther/parseEther
+
+Google Fonts (Inter + JetBrains Mono)
+  Source : https://fonts.googleapis.com
+  Purpose: UI typography — optional, loads fine offline with system font fallback
+
+# ── Browser extension (user installs manually) ──────────────
+MetaMask
+  Install: https://metamask.io
+  Purpose: Ethereum wallet, injects window.ethereum into browser
+
+# ── Solidity tooling (browser-based, no install) ─────────────
+Remix IDE
+  URL    : https://remix.ethereum.org
+  Purpose: Compile DonationBox.sol + deploy to Sepolia
+  Compiler: Solidity 0.8.10 (or any 0.8.x)
+
+# ── Optional: local dev server (if not opening index.html directly)
+# Python (usually pre-installed):
+#   python3 -m http.server 8080
+# Node.js (if installed):
+#   npx serve frontend/
