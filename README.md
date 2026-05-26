@@ -5,6 +5,17 @@ Built as a capstone project for the **BlockBase** course by IIT Guwahati Finance
 
 ---
 
+## Deployed Contract
+
+| Field | Value |
+|---|---|
+| **Network** | Sepolia Testnet (Chain ID: 11155111) |
+| **Contract Address** | `0x0b3289844a3616DA62be47c006d5C12Fc2445229` |
+| **Etherscan** | [View on Sepolia Etherscan](https://sepolia.etherscan.io/address/0x0b3289844a3616DA62be47c006d5C12Fc2445229) |
+| **Deployed by** | `0x5307481a5077d477733263723211DcAdFdF281B3` |
+
+---
+
 ## What It Does
 
 - Anyone can connect their MetaMask wallet and donate ETH to the contract.
