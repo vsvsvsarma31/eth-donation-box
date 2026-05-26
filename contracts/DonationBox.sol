@@ -100,10 +100,10 @@ contract DonationBox {
 
         // Use call (not transfer) as recommended by the Solidity security community
         // to avoid issues with gas limit changes in future EVM versions.
+        emit FundsWithdrawn(owner, balance, block.timestamp);
+
         (bool success, ) = payable(owner).call{value: balance}("");
         require(success, "Withdrawal transfer failed");
-
-        emit FundsWithdrawn(owner, balance, block.timestamp);
     }
 
     // ─────────────────────────────────────────────
