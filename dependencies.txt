@@ -9,7 +9,7 @@
 # ── Runtime (loaded from CDN, no install required) ──────────
 ethers.js v5.7.2
   Source : https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js
-  SRI    : sha512-hG6tLc9q8bFM5OQASDTJTJJg/wn8PP0PcayE3I2H1972/F7ktiSvWutAuQIkt4QUTIhiaFEnkrKea7XHUv1ugg==
+  SRI    : removed (integrity check caused browser blocking on Edge — loaded without SRI)
   Purpose: Web3 provider, contract interaction, BigNumber, formatEther/parseEther
 
 Google Fonts (Inter + JetBrains Mono)
